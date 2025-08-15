@@ -155,7 +155,21 @@ function notifyUser(msg, type = "update") {
   note.className = `notification ${type}`;
   note.textContent = msg;
   area.appendChild(note);
-  // Keep notifications for 8 seconds
   setTimeout(() => {
     note.style.opacity = '0';
-    setTimeout(() => note.remo
+    setTimeout(() => note.remove(), 300);
+  }, 8000);
+}
+
+// --- EVENT LISTENERS ---
+document.getElementById('newQuote').addEventListener('click', showRandomQuote);
+document.getElementById('addQuoteBtn').addEventListener('click', addQuote);
+document.getElementById('exportQuotes').addEventListener('click', exportToJsonFile);
+document.getElementById('importQuotesFile').addEventListener('change', importFromJsonFile);
+
+// --- INIT ---
+loadQuotesFromLocalStorage();
+populateCategories();
+filterQuotes();
+loadLastViewedQuote();
+setInterval(syncQuotes, SYNC_INTERVAL); // periodic server check
