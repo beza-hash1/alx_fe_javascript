@@ -26,10 +26,19 @@ button { padding: 0.5rem 1rem; margin-top: 0.5rem; cursor: pointer; }
   font-weight: bold;
   box-shadow: 0 2px 6px rgba(0,0,0,0.2);
   opacity: 0.95;
-  transition: transform 0.3s ease, opacity 0.3s ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .notification.update { background-color: #28a745; }      /* green */
 .notification.conflict { background-color: #dc3545; }    /* red */
+.notification button {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+}
 </style>
 </head>
 <body>

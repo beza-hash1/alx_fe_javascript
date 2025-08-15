@@ -154,11 +154,14 @@ function notifyUser(msg, type = "update") {
   const note = document.createElement("div");
   note.className = `notification ${type}`;
   note.textContent = msg;
+
+  // Dismiss button to persist until closed
+  const dismiss = document.createElement("button");
+  dismiss.textContent = "X";
+  dismiss.onclick = () => note.remove();
+  note.appendChild(dismiss);
+
   area.appendChild(note);
-  setTimeout(() => {
-    note.style.opacity = '0';
-    setTimeout(() => note.remove(), 300);
-  }, 8000);
 }
 
 // --- EVENT LISTENERS ---
