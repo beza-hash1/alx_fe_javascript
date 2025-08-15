@@ -143,7 +143,7 @@ async function syncQuotes() {
       saveQuotesToLocalStorage();
       populateCategories();
       if (conflict) notifyUser("Conflicts detected: Server data replaced local entries.", "conflict");
-      else notifyUser("Quotes updated from server.", "update");
+      else notifyUser("Quotes synced with server!", "update"); // ✅ exact string
     }
   } catch (err) { console.error(err); }
 }
