@@ -16,14 +16,6 @@ function saveQuotesToLocalStorage() {
   localStorage.setItem('quotes', JSON.stringify(quotes));
 }
 
-function saveLastCategory(category) {
-  localStorage.setItem('lastCategory', category);
-}
-
-function getLastCategory() {
-  return localStorage.getItem('lastCategory') || 'all';
-}
-
 // === CATEGORY FUNCTIONS ===
 function populateCategories() {
   const categorySelect = document.getElementById('categoryFilter');
@@ -37,9 +29,11 @@ function populateCategories() {
     categorySelect.appendChild(option);
   });
 
-  // Restore last selected category
-  const lastCat = getLastCategory();
-  categorySelect.value = lastCat;
+  // Restore last selected category from localStorage
+  const lastCat = localStorage.getItem('selectedCategory');
+  if (lastCat) {
+    categorySelect.value = lastCat;
+  }
 }
 
 // === QUOTE FUNCTIONS ===
@@ -93,8 +87,11 @@ function addQuote() {
 // === FILTER FUNCTION ===
 function filterQuotes() {
   const category = document.getElementById('categoryFilter').value;
-  saveLastCategory(category);
 
+  // Save selected category to localStorage
+  localStorage.setItem('selectedCategory', category);
+
+  // Filter quotes and display first one
   const filteredQuotes = category === 'all' ? quotes : quotes.filter(q => q.category === category);
 
   if (filteredQuotes.length === 0) {
@@ -154,5 +151,5 @@ document.getElementById('importQuotesFile').addEventListener('change', importFro
 // === INITIALIZATION ===
 loadQuotesFromLocalStorage();
 populateCategories();
-filterQuotes();
+filterQuotes(); // This will load based on restored category
 loadLastViewedQuote();
