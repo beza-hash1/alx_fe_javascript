@@ -4,6 +4,9 @@ let quotes = [
   { text: "It’s not whether you get knocked down, it’s whether you get up.", category: "Perseverance" }
 ];
 
+const SERVER_URL = "https://jsonplaceholder.typicode.com/posts"; // Simulated server
+const SYNC_INTERVAL = 10000; // 10 seconds
+
 // === STORAGE FUNCTIONS ===
 function loadQuotesFromLocalStorage() {
   const storedQuotes = localStorage.getItem('quotes');
@@ -91,7 +94,6 @@ function filterQuotes() {
   // Save selected category to localStorage
   localStorage.setItem('selectedCategory', category);
 
-  // Filter quotes and display first one
   const filteredQuotes = category === 'all' ? quotes : quotes.filter(q => q.category === category);
 
   if (filteredQuotes.length === 0) {
@@ -142,6 +144,51 @@ function importFromJsonFile(event) {
   reader.readAsText(file);
 }
 
+// === SYNC FUNCTIONS ===
+async function fetchQuotesFromServer() {
+  try {
+    const response = await fetch(SERVER_URL);
+    const serverData = await response.json();
+
+    // Simulate server quotes format
+    const serverQuotes = serverData.slice(0, 5).map(post => ({
+      text: post.title,
+      category: "Server"
+    }));
+
+    resolveConflicts(serverQuotes);
+  } catch (error) {
+    console.error("Error fetching from server", error);
+  }
+}
+
+function resolveConflicts(serverQuotes) {
+  let updated = false;
+
+  serverQuotes.forEach(sq => {
+    if (!quotes.some(lq => lq.text === sq.text)) {
+      quotes.push(sq);
+      updated = true;
+    }
+  });
+
+  if (updated) {
+    saveQuotesToLocalStorage();
+    populateCategories();
+    notifyUser("Quotes updated from server (server data takes precedence).");
+  }
+}
+
+function notifyUser(message) {
+  const noteArea = document.getElementById('notificationArea');
+  const div = document.createElement('div');
+  div.className = "notification";
+  div.textContent = message;
+  noteArea.appendChild(div);
+
+  setTimeout(() => div.remove(), 5000);
+}
+
 // === EVENT LISTENERS ===
 document.getElementById('newQuote').addEventListener('click', showRandomQuote);
 document.getElementById('addQuoteBtn').addEventListener('click', addQuote);
@@ -151,5 +198,8 @@ document.getElementById('importQuotesFile').addEventListener('change', importFro
 // === INITIALIZATION ===
 loadQuotesFromLocalStorage();
 populateCategories();
-filterQuotes(); // This will load based on restored category
+filterQuotes();
 loadLastViewedQuote();
+
+// Periodic sync with server
+setInterval(fetchQuotesFromServer, SYNC_INTERVAL);

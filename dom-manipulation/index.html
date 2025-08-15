@@ -3,13 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dynamic Quote Generator with Filter</title>
+  <title>Dynamic Quote Generator</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    #quoteDisplay { margin: 15px 0; font-size: 1.2em; }
+    .notification { background: #fffae6; padding: 10px; margin: 10px 0; border: 1px solid #ffd700; }
+  </style>
 </head>
 <body>
   <h1>Dynamic Quote Generator</h1>
 
   <!-- Category Filter -->
-  <label for="categoryFilter">Filter by Category:</label>
   <select id="categoryFilter" onchange="filterQuotes()">
     <option value="all">All Categories</option>
   </select>
@@ -18,18 +22,21 @@
   <div id="quoteDisplay"></div>
   <button id="newQuote">Show New Quote</button>
 
-  <!-- Add Quote -->
+  <!-- Add Quote Form -->
   <div>
     <input id="newQuoteText" type="text" placeholder="Enter a new quote" />
     <input id="newQuoteCategory" type="text" placeholder="Enter quote category" />
     <button id="addQuoteBtn">Add Quote</button>
   </div>
 
-  <!-- Export/Import -->
+  <!-- Export / Import -->
   <div>
     <button id="exportQuotes">Export Quotes</button>
     <input type="file" id="importQuotesFile" accept="application/json" />
   </div>
+
+  <!-- Notifications -->
+  <div id="notificationArea"></div>
 
   <script src="script.js"></script>
 </body>
