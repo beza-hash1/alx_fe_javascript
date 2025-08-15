@@ -1,54 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dynamic Quote Generator</title>
-  <style>
-    body { font-family: Arial, sans-serif; padding: 20px; }
-    h1 { text-align: center; }
-    #quoteDisplay { margin: 20px 0; font-size: 1.2em; min-height: 50px; }
-    input { padding: 0.5rem; margin-right: 0.5rem; }
-    button { padding: 0.5rem 1rem; margin-top: 0.5rem; cursor: pointer; }
-    #notificationArea { margin-top: 15px; }
-    .notification {
-      padding: 10px;
-      margin-bottom: 10px;
-      border: 1px solid #ffd700;
-      background-color: #fffae6;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dynamic Quote Generator</title>
+<style>
+body { font-family: Arial, sans-serif; padding: 20px; }
+h1 { text-align: center; }
+#quoteDisplay { margin: 20px 0; font-size: 1.2em; min-height: 50px; }
+input { padding: 0.5rem; margin-right: 0.5rem; }
+button { padding: 0.5rem 1rem; margin-top: 0.5rem; cursor: pointer; }
+#notificationArea { margin-top: 15px; }
+.notification {
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ffd700;
+  background-color: #fffae6;
+}
+</style>
 </head>
 <body>
 
 <h1>Dynamic Quote Generator</h1>
 
-<!-- Category Filter -->
 <label for="categoryFilter">Filter by category:</label>
 <select id="categoryFilter" onchange="filterQuotes()">
   <option value="all">All Categories</option>
 </select>
 
-<!-- Quote Display -->
 <div id="quoteDisplay"></div>
 <button id="newQuote">Show New Quote</button>
 
-<!-- Add Quote Form -->
 <div>
   <input id="newQuoteText" type="text" placeholder="Enter a new quote" />
   <input id="newQuoteCategory" type="text" placeholder="Enter quote category" />
   <button id="addQuoteBtn">Add Quote</button>
 </div>
 
-<!-- Export / Import -->
 <div>
   <button id="exportQuotes">Export Quotes</button>
   <input type="file" id="importQuotesFile" accept="application/json" />
 </div>
 
-<!-- Notifications -->
 <div id="notificationArea"></div>
 
 <script src="script.js"></script>
 </body>
 </html>
+
