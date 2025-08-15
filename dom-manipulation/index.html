@@ -10,13 +10,26 @@ h1 { text-align: center; }
 #quoteDisplay { margin: 20px 0; font-size: 1.2em; min-height: 50px; }
 input { padding: 0.5rem; margin-right: 0.5rem; }
 button { padding: 0.5rem 1rem; margin-top: 0.5rem; cursor: pointer; }
-#notificationArea { margin-top: 15px; }
-.notification {
-  padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #ffd700;
-  background-color: #fffae6;
+#notificationArea {
+  margin-top: 15px;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 300px;
+  z-index: 1000;
 }
+.notification {
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  color: #fff;
+  font-weight: bold;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  opacity: 0.95;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+.notification.update { background-color: #28a745; }      /* green */
+.notification.conflict { background-color: #dc3545; }    /* red */
 </style>
 </head>
 <body>
@@ -47,4 +60,3 @@ button { padding: 0.5rem 1rem; margin-top: 0.5rem; cursor: pointer; }
 <script src="script.js"></script>
 </body>
 </html>
-

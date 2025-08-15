@@ -60,7 +60,7 @@ function addQuote() {
     populateCategories();
     document.getElementById('newQuoteText').value = '';
     document.getElementById('newQuoteCategory').value = '';
-    notifyUser("Quote added successfully!");
+    notifyUser("Quote added successfully!", "update");
   } else alert("Fill both fields.");
 }
 function filterQuotes() {
@@ -96,7 +96,7 @@ function importFromJsonFile(e) {
         quotes = imported;
         saveQuotesToLocalStorage();
         populateCategories();
-        notifyUser("Quotes imported successfully!");
+        notifyUser("Quotes imported successfully!", "update");
       } else alert("Invalid file format");
     } catch {
       alert("Error reading file");
@@ -142,31 +142,20 @@ async function syncQuotes() {
     if (updated) {
       saveQuotesToLocalStorage();
       populateCategories();
-      if (conflict) notifyUser("Conflicts detected: Server data replaced local entries.");
-      else notifyUser("Quotes updated from server.");
+      if (conflict) notifyUser("Conflicts detected: Server data replaced local entries.", "conflict");
+      else notifyUser("Quotes updated from server.", "update");
     }
   } catch (err) { console.error(err); }
 }
 
 // --- NOTIFICATIONS ---
-function notifyUser(msg) {
+function notifyUser(msg, type = "update") {
   const area = document.getElementById("notificationArea");
   const note = document.createElement("div");
-  note.className = "notification";
+  note.className = `notification ${type}`;
   note.textContent = msg;
   area.appendChild(note);
-  setTimeout(() => note.remove(), 5000);
-}
-
-// --- EVENT LISTENERS ---
-document.getElementById('newQuote').addEventListener('click', showRandomQuote);
-document.getElementById('addQuoteBtn').addEventListener('click', addQuote);
-document.getElementById('exportQuotes').addEventListener('click', exportToJsonFile);
-document.getElementById('importQuotesFile').addEventListener('change', importFromJsonFile);
-
-// --- INIT ---
-loadQuotesFromLocalStorage();
-populateCategories();
-filterQuotes();
-loadLastViewedQuote();
-setInterval(syncQuotes, SYNC_INTERVAL); // ✅ periodic server check
+  // Keep notifications for 8 seconds
+  setTimeout(() => {
+    note.style.opacity = '0';
+    setTimeout(() => note.remo
