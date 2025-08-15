@@ -1,42 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dynamic Quote Generator</title>
-  <style>
-    body { font-family: Arial, sans-serif; margin: 20px; }
-    #quoteDisplay { margin: 15px 0; font-size: 1.2em; }
-    .notification { background: #fffae6; padding: 10px; margin: 10px 0; border: 1px solid #ffd700; }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hero Section Fade-In</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <h1>Dynamic Quote Generator</h1>
+  <!-- Hero Section -->
+  <section id="hero">
+    <div class="hero-content fade-in">
+      <h1>Welcome to Our Website</h1>
+      <p>Your journey starts here. Scroll down to explore more.</p>
+      <a href="#about" class="btn">Learn More</a>
+    </div>
+  </section>
 
-  <!-- Category Filter -->
-  <select id="categoryFilter" onchange="filterQuotes()">
-    <option value="all">All Categories</option>
-  </select>
-
-  <!-- Quote Display -->
-  <div id="quoteDisplay"></div>
-  <button id="newQuote">Show New Quote</button>
-
-  <!-- Add Quote Form -->
-  <div>
-    <input id="newQuoteText" type="text" placeholder="Enter a new quote" />
-    <input id="newQuoteCategory" type="text" placeholder="Enter quote category" />
-    <button id="addQuoteBtn">Add Quote</button>
-  </div>
-
-  <!-- Export / Import -->
-  <div>
-    <button id="exportQuotes">Export Quotes</button>
-    <input type="file" id="importQuotesFile" accept="application/json" />
-  </div>
-
-  <!-- Notifications -->
-  <div id="notificationArea"></div>
+  <!-- Example extra section to scroll into -->
+  <section id="about" style="height: 100vh; background: #eee;">
+    <h2>About Us</h2>
+    <p>Some about text here...</p>
+  </section>
 
   <script src="script.js"></script>
 </body>
